@@ -1,0 +1,47 @@
+CREATE DATABASE prova_kaua;
+
+USE prova_kaua;
+
+CREATE TABLE pessoa(
+	id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    nome varchar(4000) NOT NULL
+);
+
+SET SQL_MODE ="";
+
+SET SQL_MODE = 'STRICT_ALL_TABLES';
+
+SELECT count(*) FROM pessoa;
+
+SELECT * FROM pessoa  where id = 10;
+
+SELECT count(*) FROM pessoa WHERE nome like 'CADASTRADA';
+
+UPDATE pessoa SET nome = 'KAUA CORREA DE PAULA' WHERE id = 10;
+
+SELECT * FROM pessoa  where id = 10;
+
+UPDATE pessoa SET nome = 'KAUA CORREA DE PAULA' WHERE id = 100;
+
+SELECT * FROM pessoa  where id = 100;
+
+UPDATE pessoa SET nome = 'KAUA CORREA DE PAULA' WHERE id = 1000;
+
+SELECT * FROM pessoa  where id = 1000;
+
+CREATE TABLE unidade_requisitante(
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    unidade VARCHAR(500) NOT NULL UNIQUE
+);
+
+ALTER TABLE unidade_requisitante ADD COLUMN fk_pessoa INT(11);
+
+ALTER TABLE unidade_requisitante ADD CONSTRAINT id_fk_pessoa
+FOREIGN KEY(id) REFERENCES pessoa (id);
+
+SELECT p.id, p.nome, ur.id, ur.unidade FROM pessoa p
+INNER JOIN unidade_requisitante ur
+ON p.id = ur.fk_pessoa WHERE p.id in(10, 100, 1000);
+
+select count(*) from unidade_requisitante;
+
